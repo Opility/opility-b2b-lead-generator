@@ -57,13 +57,24 @@ function extractSocials($, htmlText) {
 
     $('a[href]').each((_, el) => {
         const href = $(el).attr('href') || '';
-        if (href.includes('linkedin.com/company') || href.includes('linkedin.com/in')) {
+        let host = '';
+        let pathname = '';
+
+        try {
+            const parsed = new URL(href, 'http://dummy.base');
+            host = (parsed.hostname || '').toLowerCase().replace(/^www\./, '');
+            pathname = parsed.pathname || '';
+        } catch {
+            return;
+        }
+
+        if ((host === 'linkedin.com' || host.endsWith('.linkedin.com')) && (pathname.startsWith('/company') || pathname.startsWith('/in'))) {
             socials.linkedin = href;
-        } else if (href.includes('facebook.com/')) {
+        } else if (host === 'facebook.com' || host.endsWith('.facebook.com')) {
             socials.facebook = href;
-        } else if (href.includes('twitter.com/') || href.includes('x.com/')) {
+        } else if (host === 'twitter.com' || host.endsWith('.twitter.com') || host === 'x.com' || host.endsWith('.x.com')) {
             socials.twitter = href;
-        } else if (href.includes('instagram.com/')) {
+        } else if (host === 'instagram.com' || host.endsWith('.instagram.com')) {
             socials.instagram = href;
         }
     });
