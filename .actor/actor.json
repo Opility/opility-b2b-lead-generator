@@ -1,0 +1,49 @@
+{
+  "actorSpecification": 1,
+  "name": "opility-b2b-lead-generator",
+  "title": "Opility B2B Lead Generator & Contact Extractor",
+  "description": "Scrapes B2B leads, local business directories, Google Maps & extracts verified email addresses, phone numbers, and social links.",
+  "version": "1.0.0",
+  "meta": {
+    "templateId": "project_cheerio_crawler_javascript"
+  },
+  "dockerfile": "./Dockerfile",
+  "input": "./input_schema.json",
+  "storages": {
+    "dataset": {
+      "actorSpecification": 1,
+      "title": "B2B Leads Dataset",
+      "views": {
+        "overview": {
+          "title": "Overview",
+          "transformation": {
+            "fields": [
+              "title",
+              "category",
+              "phone",
+              "email",
+              "website",
+              "address",
+              "rating",
+              "reviewsCount",
+              "socialLinks"
+            ]
+          },
+          "display": {
+            "component": "table",
+            "properties": {
+              "title": { "label": "Company Name" },
+              "category": { "label": "Category" },
+              "phone": { "label": "Phone Number" },
+              "email": { "label": "Email Address" },
+              "website": { "label": "Website" },
+              "address": { "label": "Address" },
+              "rating": { "label": "Rating" },
+              "reviewsCount": { "label": "Reviews" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "opility-b2b-lead-generator",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Automated B2B Lead Scraping & Contact Extraction Engine for Google Maps, Clinics & Local Businesses.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node src/main.js",
+    "test": "node --check src/main.js"
+  },
+  "keywords": [
+    "apify",
+    "actor",
+    "b2b",
+    "lead-generator",
+    "google-maps-scraper",
+    "email-extractor",
+    "contact-scraper",
+    "crawlee"
+  ],
+  "author": "Opility Digital Solutions",
+  "license": "ISC",
+  "dependencies": {
+    "apify": "^3.2.5",
+    "crawlee": "^3.11.0",
+    "cheerio": "^1.0.0-rc.12",
+    "got-scraping": "^4.0.0"
+  }
+}
