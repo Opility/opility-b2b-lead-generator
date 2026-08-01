@@ -1,0 +1,14 @@
+name: 'Opility B2B Lead Generator'
+description: 'Automated B2B Lead Scraping & Contact Extraction Engine for Google Maps, Clinics & Local Businesses.'
+inputs:
+  searchTerms:
+    description: 'Target business keywords or categories'
+    required: true
+    default: 'Home Care Agencies, Healthcare Clinics'
+  location:
+    description: 'Target city, state, or country'
+    required: true
+    default: 'New York, NY'
+runs:
+  using: 'node20'
+  main: 'src/main.js'
