@@ -37,7 +37,7 @@ function extractEmailsFromText(text) {
     for (let email of matches) {
         email = email.toLowerCase().trim();
         const ext = email.split('.').pop();
-        if (!ignoredEmailExtensions.includes(ext) && !email.includes('example.com') && !email.includes('domain.com')) {
+        if (!ignoredEmailExtensions.includes(ext) && !email.endsWith('@example.com') && !email.endsWith('@domain.com')) {
             cleaned.add(email);
         }
     }
@@ -45,7 +45,7 @@ function extractEmailsFromText(text) {
 }
 
 /**
- * Utility to extract social media profile links
+ * Utility to extract social media profile links using robust URL host parsing
  */
 function extractSocials($, htmlText) {
     const socials = {
@@ -57,14 +57,30 @@ function extractSocials($, htmlText) {
 
     $('a[href]').each((_, el) => {
         const href = $(el).attr('href') || '';
-        if (href.includes('linkedin.com/company') || href.includes('linkedin.com/in')) {
-            socials.linkedin = href;
-        } else if (href.includes('facebook.com/')) {
-            socials.facebook = href;
-        } else if (href.includes('twitter.com/') || href.includes('x.com/')) {
-            socials.twitter = href;
-        } else if (href.includes('instagram.com/')) {
-            socials.instagram = href;
+        try {
+            const parsedUrl = new URL(href, 'https://example.com');
+            const host = parsedUrl.hostname.toLowerCase();
+            const pathname = parsedUrl.pathname.toLowerCase();
+
+            if (host === 'linkedin.com' || host.endsWith('.linkedin.com')) {
+                if (pathname.startsWith('/company') || pathname.startsWith('/in')) {
+                    socials.linkedin = href;
+                }
+            } else if (host === 'facebook.com' || host.endsWith('.facebook.com')) {
+                if (pathname.length > 1) {
+                    socials.facebook = href;
+                }
+            } else if (host === 'twitter.com' || host.endsWith('.twitter.com') || host === 'x.com' || host.endsWith('.x.com')) {
+                if (pathname.length > 1) {
+                    socials.twitter = href;
+                }
+            } else if (host === 'instagram.com' || host.endsWith('.instagram.com')) {
+                if (pathname.length > 1) {
+                    socials.instagram = href;
+                }
+            }
+        } catch {
+            // Ignore invalid URL structures
         }
     });
 
@@ -129,9 +145,14 @@ const crawler = new CheerioCrawler({
                 const rawUrl = el.find('.result__url').attr('href') || el.find('.result__title a').attr('href') || '';
                 
                 let website = rawUrl;
-                if (website.includes('uddg=')) {
-                    const match = website.match(/uddg=([^&]+)/);
-                    if (match) website = decodeURIComponent(match[1]);
+                try {
+                    const parsedRaw = new URL(rawUrl, 'https://html.duckduckgo.com');
+                    const uddgParam = parsedRaw.searchParams.get('uddg');
+                    if (uddgParam) {
+                        website = uddgParam;
+                    }
+                } catch {
+                    // Fallback to rawUrl
                 }
 
                 // Extract embedded phone numbers if present in snippet
