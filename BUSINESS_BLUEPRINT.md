@@ -1,6 +1,6 @@
 # 🚀 OPILITY ACTOR & MICRO-SAAS BUSINESS BLUEPRINT
 
-**Owner**: Naveen Sharma (Founder, Opility Digital Solutions)  
+**Owner**: Naveen Sharma (Founder, Opility)  
 **Project**: Apify Actor Products, B2B Lead Automation & Micro-SaaS Engine  
 **Directory**: `C:\Users\sharm\iCloudDrive\Opility_Actor_SaaS_Project`
 

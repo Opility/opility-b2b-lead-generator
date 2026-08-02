@@ -18,7 +18,7 @@
     "contact-scraper",
     "crawlee"
   ],
-  "author": "Opility Digital Solutions",
+  "author": "Opility",
   "license": "ISC",
   "dependencies": {
     "apify": "^3.2.5",
