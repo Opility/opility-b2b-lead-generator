@@ -1,8 +1,8 @@
 {
   "actorSpecification": 1,
   "name": "opility-b2b-lead-generator",
-  "title": "Opility B2B Lead Generator & Contact Extractor",
-  "description": "Scrapes B2B leads, local business directories, Google Maps & extracts verified email addresses, phone numbers, and social links.",
+  "title": "B2B Lead Generator & Email Extractor (Directories & Maps)",
+  "description": "Automated B2B lead scraping & contact extraction engine. Scrapes company listings, Google Maps & directories across target locations and extracts decision-maker emails, phone numbers, and social media links.",
   "version": "1.0.0",
   "meta": {
     "templateId": "project_cheerio_crawler_javascript"

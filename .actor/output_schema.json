@@ -1,11 +1,11 @@
 {
   "actorOutputSchemaVersion": 1,
-  "title": "Opility B2B Lead Generator Output Schema",
-  "description": "Output schema defining the extracted B2B lead dataset, emails, and contact details.",
+  "title": "B2B Lead Generator Output Schema",
+  "description": "Output schema defining the dataset containing extracted company leads, phone numbers, verified emails, and social profiles.",
   "properties": {
-    "leadsDataset": {
-      "title": "Extracted Leads Dataset",
-      "description": "Default dataset containing company leads, phone numbers, verified emails, and social profiles.",
+    "dataset": {
+      "title": "Dataset",
+      "description": "Default dataset containing extracted B2B leads",
       "template": "{{links.apiDefaultDatasetUrl}}/items"
     }
   }
