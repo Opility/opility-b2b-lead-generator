@@ -15,6 +15,7 @@
     "description": "Output schema defining the dataset containing extracted company leads, phone numbers, verified emails, and social profiles.",
     "properties": {
       "dataset": {
+        "type": "string",
         "title": "Dataset",
         "description": "Default dataset containing extracted B2B leads",
         "template": "{{links.apiDefaultDatasetUrl}}/items"
