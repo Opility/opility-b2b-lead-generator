@@ -9,19 +9,7 @@
   },
   "dockerfile": "./Dockerfile",
   "input": "./input_schema.json",
-  "output": {
-    "actorOutputSchemaVersion": 1,
-    "title": "B2B Lead Generator Output Schema",
-    "description": "Output schema defining the dataset containing extracted company leads, phone numbers, verified emails, and social profiles.",
-    "properties": {
-      "dataset": {
-        "type": "string",
-        "title": "Dataset",
-        "description": "Default dataset containing extracted B2B leads",
-        "template": "{{links.apiDefaultDatasetUrl}}/items"
-      }
-    }
-  },
+  "output": "./output_schema.json",
   "storages": {
     "dataset": {
       "actorSpecification": 1,
