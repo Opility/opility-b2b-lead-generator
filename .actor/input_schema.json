@@ -1,45 +1,54 @@
 {
-  "title": "Opility B2B Lead Generator Input",
+  "title": "Opility B2B Lead Generator Input Schema",
   "type": "object",
   "schemaVersion": 1,
   "properties": {
     "searchTerms": {
-      "title": "Search Terms / Categories",
+      "title": "Search Keywords / Categories",
       "type": "array",
-      "description": "List of business categories or search keywords (e.g. ['Home Care Agencies', 'Dental Clinics', 'Software Companies'])",
+      "description": "List of B2B business categories or keywords to scrape (e.g. Software Companies, Marketing Agencies, IT Services, Real Estate Brokers, Healthcare Clinics).",
       "editor": "json",
-      "default": ["Home Care Agencies", "Healthcare Clinics"]
+      "default": [
+        "Software Companies",
+        "Marketing Agencies",
+        "IT Services",
+        "Real Estate Brokers",
+        "Healthcare Clinics"
+      ]
     },
     "location": {
       "title": "Target Location",
       "type": "string",
-      "description": "City, state, or country to target (e.g. 'New York, NY' or 'London, UK')",
+      "description": "Target city, state, or country (e.g. New York, NY, London UK, Miami FL).",
       "editor": "textfield",
       "default": "New York, NY"
     },
     "maxResults": {
       "title": "Maximum Leads to Extract",
       "type": "integer",
-      "description": "Maximum total number of B2B business leads to scrape",
+      "description": "Maximum number of B2B business lead records to extract.",
       "minimum": 1,
-      "maximum": 5000,
+      "maximum": 50000,
       "default": 100
     },
     "extractEmails": {
-      "title": "Deep Extract Emails & Socials",
+      "title": "Deep Scan Websites for Emails & Socials",
       "type": "boolean",
-      "description": "Crawl target business websites to extract contact emails and social media profiles (LinkedIn, Facebook, Twitter, Instagram).",
+      "description": "Perform deep web crawling on company websites to extract verified emails & social profiles.",
       "default": true
     },
     "proxyConfiguration": {
       "title": "Proxy Configuration",
       "type": "object",
-      "description": "Use Apify Proxies to bypass rate limits and geographic blocks.",
+      "description": "Apify Proxy options to prevent IP rate limits and anti-scraping blocks.",
       "editor": "proxy",
       "default": {
         "useApifyProxy": true
       }
     }
   },
-  "required": ["searchTerms", "location"]
+  "required": [
+    "searchTerms",
+    "location"
+  ]
 }

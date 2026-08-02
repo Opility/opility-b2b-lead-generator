@@ -8,7 +8,7 @@ await Actor.init();
 // Fetch Actor Input from Apify Console or local testing
 const input = (await Actor.getInput()) || {};
 const {
-    searchTerms = ['Home Care Agencies', 'Healthcare Clinics'],
+    searchTerms = ['Software Companies', 'Marketing Agencies', 'IT Services', 'Real Estate Brokers', 'Healthcare Clinics'],
     location = 'New York, NY',
     maxResults = 100,
     extractEmails = true,
@@ -24,7 +24,7 @@ const proxyConfiguration = await Actor.createProxyConfiguration(rawProxyConfig);
 
 let totalScraped = 0;
 const emailRegex = /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/gi;
-const ignoredEmailExtensions = ['png', 'jpg', 'jpeg', 'gif', 'svg', 'webp', 'sentry', 'wixpress.com'];
+const ignoredEmailExtensions = ['png', 'jpg', 'jpeg', 'gif', 'svg', 'webp', 'sentry', 'wixpress.com', 'schema.org'];
 
 /**
  * Utility to extract emails from raw HTML text
@@ -112,24 +112,38 @@ async function scrapeBusinessWebsite(websiteUrl) {
 
         return { emails, socials };
     } catch (err) {
-        console.log(`⚠️ Website scan skipped for ${websiteUrl}: ${err.message}`);
         return { emails: [], socials: {} };
     }
 }
 
-// Prepare search URLs for directory / search scraping
+// Prepare multi-page search URLs for directory / search scraping
 const startUrls = [];
+const pagesPerTerm = Math.max(2, Math.ceil(maxResults / (searchTerms.length * 10)));
+
 for (const term of searchTerms) {
-    const query = encodeURIComponent(`${term} in ${location}`);
-    startUrls.push({
-        url: `https://html.duckduckgo.com/html/?q=${query}`,
-        userData: { term, label: 'SEARCH' },
-    });
+    const queryVariations = [
+        `${term} in ${location}`,
+        `${term} companies in ${location}`,
+        `${term} directory in ${location}`,
+    ];
+
+    for (const queryStr of queryVariations) {
+        const query = encodeURIComponent(queryStr);
+        for (let page = 0; page < pagesPerTerm; page++) {
+            const offset = page * 30;
+            startUrls.push({
+                url: `https://html.duckduckgo.com/html/?q=${query}&s=${offset}`,
+                userData: { term, label: 'SEARCH' },
+            });
+        }
+    }
 }
+
+const seenWebsites = new Set();
 
 const crawler = new CheerioCrawler({
     proxyConfiguration,
-    maxRequestsPerCrawl: maxResults * 2,
+    maxRequestsPerCrawl: maxResults * 3,
     requestHandler: async ({ $, request }) => {
         if (totalScraped >= maxResults) return;
 
@@ -154,6 +168,9 @@ const crawler = new CheerioCrawler({
                 } catch {
                     // Fallback to rawUrl
                 }
+
+                if (!website || seenWebsites.has(website)) continue;
+                seenWebsites.add(website);
 
                 // Extract embedded phone numbers if present in snippet
                 const phoneMatch = snippet.match(/(\+?\d{1,4}[-.\s]?)?(\(?\d{3}\)?[-.\s]?)?\d{3}[-.\s]?\d{4}/);
@@ -184,7 +201,7 @@ const crawler = new CheerioCrawler({
 
                 await Dataset.pushData(leadRecord);
                 totalScraped++;
-                console.log(`✅ [${totalScraped}/${maxResults}] Extracted B2B Lead: ${title} | Email: ${leadRecord.email || 'N/A'} | Phone: ${phone || 'N/A'}`);
+                console.log(`✅ [${totalScraped}/${maxResults}] Extracted B2B Lead: ${title} | Category: ${request.userData.term} | Email: ${leadRecord.email || 'N/A'}`);
             }
         }
     },
