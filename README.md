@@ -1,4 +1,4 @@
-# B2B Lead Generator & Contact Extractor
+# 🚀 B2B Leads Scraper ✅ $1.5/1k Leads ✅ Emails & Phones
 
 [![Apify Actor](https://img.shields.io/badge/Apify-Actor-orange?logo=apify)](https://apify.com/store)
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
