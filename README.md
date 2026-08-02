@@ -1,10 +1,10 @@
-# 🚀 Opility B2B Lead Generator & Contact Extractor
+# B2B Lead Generator & Contact Extractor
 
 [![Apify Actor](https://img.shields.io/badge/Apify-Actor-orange?logo=apify)](https://apify.com/store)
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 [![Node.js](https://img.shields.io/badge/Node.js-v20-green?logo=node.js)](https://nodejs.org)
 
-**Opility B2B Lead Generator** is a high-speed, automated lead generation and contact extraction tool designed for B2B sales teams, recruitment agencies, home care businesses, and healthcare clinics. 
+**B2B Lead Generator** is a high-speed, automated lead generation and contact extraction tool designed for B2B sales teams, recruitment agencies, home care businesses, and healthcare clinics. 
 
 It searches specified business categories across target cities/locations, extracts verified company names, websites, phone numbers, and performs deep crawling on company websites to extract contact emails and social media profiles (LinkedIn, Facebook, Twitter, Instagram).
 
